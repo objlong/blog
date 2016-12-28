@@ -11,9 +11,13 @@ var app = express();
 
 //views dir
 app.set('views', path.join(__dirname, 'views'));
-
-// set ejs
-app.set('view engine', 'ejs');
+/*
+if use html,add this
+*/
+app.engine('html', require('ejs').__express);
+// set ejs or html
+app.set('view engine', 'html');
+// app.set('view engine', 'ejs');
 
 // set public
 app.use(express.static(path.join(__dirname, 'public')));
@@ -47,7 +51,7 @@ app.use(function (req, res, next) {
 	res.locals.success = req.flash('success').toString();
 	res.locals.error = req.flash('error').toString();
 	next();
-})
+});
 
 //router
 routes(app);

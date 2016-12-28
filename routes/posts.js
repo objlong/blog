@@ -38,7 +38,6 @@ router.post('/', checkLogin, function (req, res, next) {
 	};
 	PostModel.create(post)
 		.then(function (result) {
-			console.log(result)
 			post = result.ops[0];
 			req.flash('success', '发表成功');
 			res.redirect(`/posts/${post._id}`);

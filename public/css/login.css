@@ -1,0 +1,61 @@
+.login{
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+	width: 500px;
+	height: 300px;
+	padding: 20px;
+	overflow: hidden;
+}
+.login .login-content{
+	text-align: center;
+	font-size: 22px;
+	color: #444;
+	padding: 20px 0;
+}
+.login .user-name{
+	padding-bottom: 20px;
+}
+.login .password{
+	padding-bottom: 20px;
+}
+.login > div > input{
+	display: block;
+	padding: 0;
+	margin: 0;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	width: 100%;
+	height: 52px;
+	padding-left: 20px;
+	font-size: 16px;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+}
+.login a{
+	width: 150px;
+	height: 52px;
+	line-height: 52px;
+	border-radius: 4px;	
+	display: block;
+	background-color: #D7ECF1;
+	color: #444;	
+	text-align: center;
+	font-size: 18px;
+}
+.login .login-btn{
+	float: left;
+	margin-left: 20px;
+}
+.login .register-btn{
+	float: right;
+	margin-right: 20px;
+}
+.login a:hover{
+	background-color: #7CA692;
+}

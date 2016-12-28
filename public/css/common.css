@@ -1,0 +1,9 @@
+/*清除默认样式*/
+body,h6,h5,h4,h3,h2,h1,ul,dl,dd,dt,p,input{padding: 0;margin: 0;font-family: Helvetica,Arial,"Microsoft YaHei",FreeSans,Arimo,"Droid Sans","wenquanyi micro hei","Hiragino Sans GB","Hiragino Sans GB W3","FontAwesome",sans-serif;}
+body{-moz-user-select: none;-webkit-user-select: none;-ms-user-select: none;user-select: none;color: #5b6682;}
+h3,h2,h1{font-weight: normal;}
+*{-webkit-appearance: none;-webkit-tap-highlight-color: transparent;-webkit-appearance: none;}
+a{text-decoration: none;color: currentcolor;}
+input{padding: 0;margin: 0;border: 0;}
+ul{margin: 0;padding: 0;}
+li{list-style-type: none;}
