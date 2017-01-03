@@ -9,6 +9,10 @@ var pkg = require('./package');
 
 var app = express();
 
+var bodyParser = require("body-parser");
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:false}));
+
 //views dir
 app.set('views', path.join(__dirname, 'views'));
 /*

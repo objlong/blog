@@ -11,10 +11,10 @@
 		<div class="login">
 			<div class="login-content">登陆</div>
 			<div class="user-name">
-				<input type="text">
+				<input type="text" v-model="userName" placeholder="请输入账号">
 			</div>
 			<div class="password">
-				<input type="password">
+				<input type="password" v-model="password" placeholder="请输入密码">
 			</div>
 			<a href="javascript:void(0)" @click="login" class="login-btn">登陆</a>
 			<a href="javascript:void(0)" class="register-btn">注册</a>

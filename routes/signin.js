@@ -11,7 +11,7 @@
 	});
 
 	// POST /signin 用户登录
-	router.post('/', checkNotLogin, function(req, res, next) {
+	router.post('/new', checkNotLogin, function(req, res, next) {
 		var name = req.fields.name,
 			password = req.fields.password;
 		UserModel.getUserByName(name)
