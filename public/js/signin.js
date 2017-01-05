@@ -1,3 +1,4 @@
+Vue.http.options.emulateJSON = true;
 var vm = new Vue({
 	el: '#main',
 	data: {
@@ -6,13 +7,21 @@ var vm = new Vue({
 	},
 	methods: {
 		login: function () {
+			if (!this.userName) {
+				return alert('请输入账号');
+			} else if (!this.password) {
+				return alert('请输入密码');
+			}
 			this.$http.post('/signin', {
 				user_name: vm.userName,
 				password: vm.password
 			}).then(function (res) {
-				console.log(res)
+				if (res.body.errmsg) {
+					return alert(res.body.errmsg);
+				}
+				window.location.href = '/post';
 			}, function(res) {
-				console.log(res)
+				alert('网络连接失败');
 			});
 		}
 	}

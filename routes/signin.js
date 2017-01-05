@@ -11,25 +11,36 @@
 	});
 
 	// POST /signin 用户登录
-	router.post('/new', checkNotLogin, function(req, res, next) {
+	router.post('/', checkNotLogin, function(req, res, next) {
 		var name = req.fields.name,
 			password = req.fields.password;
 		UserModel.getUserByName(name)
 		.then(function (user) {
 			if (!user) {
-				req.flash('error', 'no user');
-				return res.redirect('back');
+				res.send({
+					errnum: '',
+					errmsg: '账号密码错误',
+					data: null
+				});
+				return;
 			}
 			//checkpsw
 			if (sha1(password) !== user.password) {
-				req.flash('error', 'psw error');
-				return res.redirect('back');
+				res.send({
+					errnum: '',
+					errmsg: '账号密码错误',
+					data: null
+				});
+				return;
 			}
-			req.flash('success', 'login success');
 			//session
 			delete user.password;
 			req.session.user = user;
-			res.redirect('/posts');
+			res.send({
+				errnum: '',
+				errmsg: '',
+				data: 'success'
+			});
 		})
 		.catch(next);
 	});

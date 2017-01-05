@@ -7,6 +7,7 @@ var CommentModel = require('../models/comments');
 // eg: GET /posts/?author=xxx
 router.get('/', function (req, res, next) {
 	var author = req.query.author;
+	console.log(author)
 	PostModel.getPosts(author)
 		.then(function (posts) {
 			res.render('posts', {posts: posts});
