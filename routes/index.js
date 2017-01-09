@@ -1,6 +1,10 @@
 module.exports = function (app) {
 	app.get('/', function (req, res) {
-		res.redirect('signin');
+		if (req.session.user) {
+			res.redirect('posts');
+		} else {
+			res.redirect('signin');
+		}
 	});
 	app.use('/signup', require('./signup'));
 	app.use('/signin', require('./signin'));

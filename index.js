@@ -16,12 +16,12 @@ var app = express();
 //views dir
 app.set('views', path.join(__dirname, 'views'));
 /*
-if use html,add this
+if use html,add this   
 */
 app.engine('html', require('ejs').__express);
 // set ejs or html
 app.set('view engine', 'html');
-// app.set('view engine', 'ejs');
+// app.set('view engine', 'ejs'); 
 
 // set public
 app.use(express.static(path.join(__dirname, 'public')));
