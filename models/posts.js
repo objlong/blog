@@ -59,6 +59,7 @@ module.exports = {
 			.addCommentsCount()
 			.contentToHtml()
 			.exec();
+
 	},
 	incPv: function incPv(postId) {
 		return Post

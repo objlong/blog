@@ -1,41 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>文章列表</title>
-	<link rel="stylesheet" href="/css/common.css">
-	<link rel="stylesheet" href="/css/posts.css">
+    <meta charset="UTF-8">
+    <title>文章列表</title>
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/posts.css">
 </head>
 <body>
-	<div class="header">
-		<div class="menu">
-			<a href="javascript:void(0)" class="right-btn"></a>
-		</div>
-		<div class="bg"></div>
-	</div>
-	<div class="main">
-		<div class="article-list">
-			<div class="article-item">
-				<div class="author">
-					<img src="/img/headimg.jpg" alt="">
-					<p class="author-name">objlong007</p>
-				</div>
-				<div class="article">
-					<p class="article-title">2222</p>
-					<p class="article-content">zheshineirongzheshineirongzhesshineirongzhesshineirongzhesshineirongzhesshineirongzheshineirongzheshineirongzheshineirongzheshineirong</p>
-				</div>
-			</div>
-			<div class="article-item">
-				<div class="author">
-					<img src="/img/headimg.jpg" alt="">
-					<p class="author-name">objlong007</p>
-				</div>
-				<div class="article">
-					<p class="article-title">2222</p>
-					<p class="article-content">zheshineirongzheshineirongzhesshineirongzhesshineirongzhesshineirongzhesshineirongzheshineirongzheshineirongzheshineirongzheshineirong</p>
-				</div>
-			</div>			
-		</div>
-	</div>
+    <div id="posts">
+        <div class="header">
+            <div class="menu">
+                <a href="javascript:void(0)" class="right-btn"></a>
+            </div>
+            <div class="bg"></div>
+        </div>
+        <div class="main">
+            <div class="article-list" :ss="load">
+                <post v-for="articleItem in articleList" :article-item="articleItem"></post>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="/js/libs/vue.js"></script>
+    <script type="text/javascript" src="/js/libs/vue-resource.min.js"></script>
+    <script type="text/javascript" src="/js/components.js"></script>        
+    <script type="text/javascript" src="/js/posts.js"></script>        
 </body>
 </html>

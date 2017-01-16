@@ -6,16 +6,22 @@ var CommentModel = require('../models/comments');
 // GET /posts wenzhangye
 // eg: GET /posts/?author=xxx
 router.get('/', function (req, res, next) {
+	res.render('posts.html');
+
+});
+router.get('/list', function (req, res, next) {
 	var author = req.query.author;
 	PostModel.getPosts(author)
 		.then(function (posts) {
-			console.log(posts)
-			res.render('posts.html');
+			posts.forEach((p, i, a) => {
+				delete p.author.password;
+			});
+			res.send(posts);
 		})
 		.catch(next);
 });
 
-// POST /posts fabiaowenzhang
+// POST /posts 发表文章
 router.post('/', checkLogin, function (req, res, next) {
 	var author = req.session.user._id,
 		title = req.fields.title,
@@ -46,12 +52,12 @@ router.post('/', checkLogin, function (req, res, next) {
 		.catch(next);
 });
 
-// GET /posts/create fabiaowenzhangyemian
+// GET /posts/create 发表文章页面
 router.get('/create', checkLogin, function (req, res, next) {
 	res.render('create');
 });
 
-// GET /posts/:postId danduwenzhangye
+// GET /posts/:postId 单独作者文章页
 router.get('/:postId', checkLogin, function (req, res, next) {
 	var postId = req.params.postId;
 	Promise.all([
@@ -73,7 +79,7 @@ router.get('/:postId', checkLogin, function (req, res, next) {
 	.catch(next);
 });
 
-// GET /posts/:postId/edit bianjiwenzhangye
+// GET /posts/:postId/edit 编辑文章页面
 router.get('/:postId/edit', checkLogin, function (req, res, next) {
 	var postId = req.params.postId,
 		author = req.session.user._id;
@@ -92,7 +98,7 @@ router.get('/:postId/edit', checkLogin, function (req, res, next) {
 		.catch(next);
 });
 
-// POST /posts/:postId/edit bianjiwenzhang
+// POST /posts/:postId/edit 编辑文章
 router.post('/:postId/edit', checkLogin, function (req, res, next) {
 	var postId = req.params.postId,
 		author = req.session.user._id,
