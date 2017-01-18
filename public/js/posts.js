@@ -50,7 +50,6 @@ var vm = new Vue({
 				postId: this.local().id,
 				content: this.content
 			}).then(function(res) {
-				console.log(res)
 				if (res.body.errnum == '100000') {
 					window.location.href = '/signin';
 					return;
@@ -59,8 +58,18 @@ var vm = new Vue({
 				return this.info.comments = res.body.data;
 			});
 		},
-		deleteComment: function() {
-			alert(1)
+		deleteComment: function(e) {
+			var comment_id = e.target.dataset.comment_id;
+			this.$http.post('/posts/remove_comment/', {
+				comment_id: comment_id
+			}).then(function(res) {
+				if (res.body.errmsg) return alert(res.body.errmsg);
+				for (var i = 0; i < this.info.comments.length; i++) {
+					if (comment_id == this.info.comments[i]._id) {
+						this.info.comments.splice(i, 1);
+					}
+				}
+			})
 		}	
 	}
 });

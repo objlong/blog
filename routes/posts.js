@@ -170,7 +170,7 @@ router.post('/submit_comment/', checkLogin, function(req, res, next) {
 });
 
 // GET /posts/remove_comment/?comment_id=commentId 删除一条留言
-router.post('/posts/remove_comment/', checkLogin, function(req, res, next) {
+router.post('/remove_comment/', checkLogin, function(req, res, next) {
 	var commentId = req.fields.comment_id,
 		author = req.session.user._id;
 	CommentModel.delCommentById(commentId, author)

@@ -30,7 +30,7 @@ Vue.component('comment', {
             </div>\
             <div class="comments-content" v-html="comment.content">\
             </div>\
-            <a v-if="comment.is_delete" @click="deleteComment" href="javascript:void(0)" class="delete-comment">删除</a>\
+            <a v-if="comment.is_delete" @click="deleteComment" :data-comment_id="comment._id" href="javascript:void(0)" class="delete-comment">删除</a>\
         </div>\
 	',
 	props: ['comment', 'deleteComment']
