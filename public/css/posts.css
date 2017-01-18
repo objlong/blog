@@ -2,6 +2,7 @@ body{
 	padding: 0;
 	margin: 0;
 	background-color: #ecf0f1;
+	color: #444;
 }
 .header .menu{
 	position: fixed;
@@ -51,22 +52,113 @@ body{
 }
 .article-list .article-item .author > p{
 	font-size: 20px;
-	color: #444;
 	text-align: center;
 	padding-top: 40px;
 	font-weight: bold;
 }
 .article-list .article-item .article-title{
 	font-size: 24px;
-	color: #444;
 	text-align: center;
 	padding: 40px;
 	font-weight: bold;
 }
 .article-list .article-item .article-content{
 	font-size: 20px;
-	color: #444;
 	padding: 0 40px 40px 40px;
 	text-indent: 2em;
 	word-break: break-all;
+}
+/*comments*/
+.comments{
+	background-color: #fff;
+	margin-bottom: 40px;
+}
+.comments .comments-header{
+	padding: 40px 0;
+	margin: 0 40px;
+	font-size: 24px;
+	border-bottom: 1px solid #0073aa;
+	font-weight: bold;
+}
+.comments .comments-item{
+	padding: 40px 0;
+	margin: 0 40px;
+	position: relative;
+	border-bottom: 1px solid #0073aa;
+	min-height: 200px;
+}
+.comments > div:last-child{
+	border-bottom: 0;
+}
+.comments .comments-item .comments-info{
+	position: absolute;
+	left: 0;
+	top: 50%;
+	transform: translateY(-50%);
+	-webkit-transform: -webkit-translateY(-50%);
+}
+.comments .comments-item .comments-info img{
+	width: 70px;
+	height: 70px;
+	border-radius: 4px;
+	padding-bottom: 20px;
+	margin: 0 auto;
+	display: block;
+}
+.comments .comments-item .comments-info p{
+	font-size: 20px;
+	text-align: center;
+}
+.comments .comments-item .comments-content{
+	font-size: 20px;
+	padding-left: 200px;
+}
+.comments .comments-item .delete-comment{
+	font-size: 20px;
+	position: absolute;
+	right: 20px;
+	bottom: 40px;
+}
+.comments .comments-item .delete-comment:hover{
+	text-decoration: underline;
+}
+.submit-comments{
+	background-color: #fff;
+}
+.submit-comments .submit-header{
+	padding: 40px 0;
+	margin: 0 40px;
+	font-size: 24px;
+	border-bottom: 1px solid #0073aa;
+	font-weight: bold;	
+}
+.submit-comments .submit-content{
+	padding: 40px;
+	overflow: hidden;
+}
+.submit-comments .submit-content textarea{
+	resize: none;
+	height: 300px;
+	width: 100%;
+	padding: 20px;
+	box-sizing: border-box;
+	-webkit-box-sizing:border-box;
+	display: block;
+	border-radius: 4px;
+	font-size: 20px;
+}
+.submit-comments .submit-content .submit{
+	float: right;
+	margin-top: 40px;
+	background-color: #0073aa;
+	color: #fff;
+	border-radius: 4px;
+	font-size: 20px;
+	text-align: center;
+	width: 100px;
+	height: 50px;
+	line-height: 50px;
+}
+.submit-comments .submit-content .submit:hover{
+	background-color: #0F7EB5;
 }

@@ -3,12 +3,10 @@ var router = express.Router();
 var checkLogin = require('../middlewares/check').checkLogin;
 var PostModel = require('../models/posts');
 var CommentModel = require('../models/comments');
-// GET /posts wenzhangye
-// eg: GET /posts/?author=xxx
 router.get('/', function (req, res, next) {
 	res.render('posts.html');
-
 });
+//获取文章列表
 router.get('/list', function (req, res, next) {
 	var author = req.query.author;
 	PostModel.getPosts(author)
@@ -16,7 +14,11 @@ router.get('/list', function (req, res, next) {
 			posts.forEach((p, i, a) => {
 				delete p.author.password;
 			});
-			res.send(posts);
+			res.send({
+				errnum: '',
+				errmsg: '',
+				data: posts
+			});
 		})
 		.catch(next);
 });
@@ -57,9 +59,9 @@ router.get('/create', checkLogin, function (req, res, next) {
 	res.render('create');
 });
 
-// GET /posts/:postId 单独作者文章页
-router.get('/:postId', checkLogin, function (req, res, next) {
-	var postId = req.params.postId;
+// GET /posts/one?id=postId 单独文章页
+router.get('/one', function (req, res, next) {
+	var postId = req.query.id;
 	Promise.all([
 		PostModel.getPostById(postId),
 		CommentModel.getComments(postId),
@@ -69,12 +71,26 @@ router.get('/:postId', checkLogin, function (req, res, next) {
 		var post = result[0];
 		var comments = result[1];
 		if (!post) {
-			throw new Error('no article');
+			res.send({
+				errnum: '',
+				errmsg: '没有此篇文章',
+				data: null
+			});			
+		} else {
+			delete post.author.password;
+  			var author = req.session.user._id;
+			comments.forEach((one, index, comments) => {
+				one.is_delete = one.author._id == author ? 1 : 0;
+ 			});			
+			res.send({
+				errnum: '',
+				errmsg: '',
+				data: {
+					post: [post],
+					comments: comments
+				}
+			});				
 		}
-		res.render('post', {
-			post: post,
-			comments: comments
-		});
 	})
 	.catch(next);
 });
@@ -125,10 +141,11 @@ router.get('/:postId/remove', checkLogin, function(req, res, next) {
   		.catch(next);
 });
 
-// POST /posts/:postId/comment 创建一条留言
-router.post('/:postId/comment', checkLogin, function(req, res, next) {
+// POST /posts/comment/?id=postId 创建一条留言
+router.post('/submit_comment/', checkLogin, function(req, res, next) {
+	console.log(req.session)
   	var author = req.session.user._id,
-  		postId = req.params.postId,
+  		postId = req.fields.postId,
   		content = req.fields.content,
   		comment = {
   			author: author,
@@ -136,21 +153,35 @@ router.post('/:postId/comment', checkLogin, function(req, res, next) {
   			content: content
   		};
   	CommentModel.create(comment)
-  		.then(function () {
-  			req.flash('success', 'leave message success');
-  			res.redirect('back');
-  		})
-  		.catch(next);
+	.then(function () {
+		CommentModel.getComments(postId)
+		.then(function (result) {
+			result.forEach((one, index, result) => {
+				one.is_delete = one.author._id == author ? 1 : 0;
+ 			});
+			res.send({
+				errmsg: '',
+				errnum: '',
+				data: result
+			});
+		});
+	})
+	.catch(next);
 });
 
-// GET /posts/:postId/comment/:commentId/remove 删除一条留言
-router.get('/:postId/comment/:commentId/remove', checkLogin, function(req, res, next) {
-	var commentId = req.params.commentId,
+// GET /posts/remove_comment/?comment_id=commentId 删除一条留言
+router.post('/posts/remove_comment/', checkLogin, function(req, res, next) {
+	var commentId = req.fields.comment_id,
 		author = req.session.user._id;
 	CommentModel.delCommentById(commentId, author)
 		.then(function () {
-			req.flash('success', 'delete message success');
-			res.redirect('back');
+			res.send({
+				errmsg: '',
+				errnum: '',
+				data: {
+					commnet_id: commentId
+				}
+			});
 		})
 		.catch(next)
 });

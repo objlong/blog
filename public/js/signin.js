@@ -19,7 +19,7 @@ var vm = new Vue({
 				if (res.body.errmsg) {
 					return alert(res.body.errmsg);
 				}
-				window.location.href = '/post';
+				window.location.href = '/posts';
 			}, function(res) {
 				alert('网络连接失败');
 			});
