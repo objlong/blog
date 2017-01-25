@@ -30,14 +30,17 @@ router.post('/', checkLogin, function (req, res, next) {
 		content = req.fields.content;
 	try {
 		if (!title.length) {
-			throw new Error('lose title');
+			throw new Error('请输入标题');
 		}
 		if (!content.length) {
-			throw new Error('lose content');
+			throw new Error('请输入内容');
 		}
 	} catch (e) {
-		req.flash('error', e.message);
-		return res.redirect('back');
+		return res.send({
+			errmsg: e.message,
+			errnum: '',
+			data: null
+		});
 	}
 	var post = {
 		author: author,
@@ -48,15 +51,18 @@ router.post('/', checkLogin, function (req, res, next) {
 	PostModel.create(post)
 		.then(function (result) {
 			post = result.ops[0];
-			req.flash('success', '发表成功');
-			res.redirect(`/posts/${post._id}`);
+			res.send({
+				errmsg: '',
+				errnum: '',
+				data: post
+			});
 		})
 		.catch(next);
 });
 
-// GET /posts/create 发表文章页面
-router.get('/create', checkLogin, function (req, res, next) {
-	res.render('create');
+// GET /posts/public 发表文章页面
+router.get('/public', checkLogin, function (req, res, next) {
+	res.render('public');
 });
 
 // GET /posts/one?id=postId 单独文章页
@@ -95,35 +101,48 @@ router.get('/one', function (req, res, next) {
 	.catch(next);
 });
 
-// GET /posts/:postId/edit 编辑文章页面
-router.get('/:postId/edit', checkLogin, function (req, res, next) {
-	var postId = req.params.postId,
+// GET /posts/edit/?post_id=postId 编辑文章页面
+router.get('/edit', checkLogin, function (req, res, next) {
+	var postId = req.query.post_id,
 		author = req.session.user._id;
 	PostModel.getRawPostById(postId)
 		.then(function (post) {
-			if (!post) {
-				throw new Error('no article');
+			try {
+				if (!post) {
+					throw new Error('文章不存在');
+				}
+				if (author.toString() !== post.author._id.toString()) {
+					throw new Error('权限不足');
+				}
+			} catch (e) {
+				return res.send({
+					errmsg: e.message,
+					errnum: '',
+					data: null
+				});
 			}
-			if (author.toString() !== post.author._id.toString()) {
-				throw new Error('权限不足');
-			}
-			res.render('edit', {
-				post: post
-			})
+			res.send({
+				errmsg: '',
+				errnum: '',
+				data: post
+			});
 		})
 		.catch(next);
 });
 
-// POST /posts/:postId/edit 编辑文章
-router.post('/:postId/edit', checkLogin, function (req, res, next) {
-	var postId = req.params.postId,
+// POST /posts/edit/?id=postId 编辑文章
+router.post('/edit', checkLogin, function (req, res, next) {
+	var postId = req.fields.post_id,
 		author = req.session.user._id,
 		title = req.fields.title,
 		content = req.fields.content;
 	PostModel.updatePostById(postId, author, {title: title, content: content})
 		.then(function () {
-			req.flash('success', 'edit success');
-			res.redirect(`/posts/${postId}`);
+			res.send({
+				errmsg: '',
+				errnum: '',
+				data: 'success'
+			});
 		})
 		.catch(next);
 });

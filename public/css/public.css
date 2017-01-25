@@ -1,0 +1,75 @@
+.header .menu{
+	position: fixed;
+	width: 100%;
+	left: 0;
+	top: 0;	
+	height: 60px;
+	opacity: .7;
+	background-color: #000;
+	z-index: 2;
+}
+.header .bg{
+	position: fixed;
+	width: 100%;
+	left: 0;
+	top: 0;	
+	height: 200px;
+	background-image: url(../img/header.jpg);
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+	z-index: -1;		
+}
+.public{
+	z-index: 1;
+	min-width: 960px;
+	max-width: 1148px;
+	margin: 0 auto;	
+	margin-top: 130px;
+}
+.public .title input{
+	display: block;
+	width: 800px;
+	margin: auto;
+	font-size: 20px;
+	border: 1px solid #0073aa;
+	border-radius: 4px;
+	height: 50px;
+	padding-left: 20px;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+}
+.public .content{
+	margin-top: 50px;
+}
+.public .content textarea{
+	resize: none;
+	display: block;
+	width: 800px;
+	height: 500px;
+	margin: auto;
+	font-size: 20px;
+	border: 1px solid #0073aa;
+	border-radius: 4px;
+	padding-left: 20px;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+}
+.public .public-btn{
+	margin-top: 50px;
+}
+.public .public-btn a{
+	display: block;
+	background-color: #0073aa;
+	color: #fff;
+	border-radius: 4px;
+	font-size: 20px;
+	text-align: center;
+	width: 100px;
+	height: 50px;
+	line-height: 50px;
+	margin: auto;
+}
+.public .public-btn a:hover{
+	background-color: #0F7EB5;
+}

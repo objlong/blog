@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>发表文章</title>
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/public.css">
+</head>
+<body>
+	<div class="main" id="main" :load="load">
+        <div class="header">
+            <div class="menu">
+                <a href="javascript:void(0)" class="right-btn"></a>
+            </div>
+            <div class="bg"></div>
+        </div>
+        <div class="public">
+        	<div class="title">
+        		<input type="text" placeholder="请输入标题" v-model="title">
+        	</div>
+        	<div class="content">
+        		<textarea placeholder="请输入内容" v-model="content"></textarea>
+        	</div>
+        	<div class="public-btn">
+        		<a href="javascript:void(0)" @click="submitArticle">发表</a>
+        	</div>
+        </div>
+	</div>
+    <script type="text/javascript" src="/js/libs/vue.js"></script>
+    <script type="text/javascript" src="/js/libs/vue-resource.min.js"></script>
+    <script type="text/javascript" src="/js/public.js"></script>        
+</body>
+</html>
