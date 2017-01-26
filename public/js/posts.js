@@ -28,7 +28,7 @@ var vm = new Vue({
 				params: {id: this.local().id}
 			}).then(function(res) {
 				if (res.body.errmsg) return alert(res.body.errmsg);
-				return this.info = {
+				this.info = {
 					articleList: res.body.data.post,
 					comments: res.body.data.comments
 				};
@@ -45,6 +45,17 @@ var vm = new Vue({
 			}
 			return t;
 		},
+		delArticle: function() {
+			var r = confirm('确定要删除此文章吗?');
+			if (r) {
+				this.$http.post('/posts/remove/', {
+					post_id: this.local().id
+				}).then(function(res) {
+					if (res.body.errmsg) return alert(res.body.errmsg);
+					window.location.href = "/posts/";
+				})
+			}
+		},
 		submit: function () {
 			this.$http.post('/posts/submit_comment', {
 				postId: this.local().id,
@@ -55,6 +66,7 @@ var vm = new Vue({
 					return;
 				}
 				if (res.body.errmsg) return alert(res.body.errmsg);
+				this.content = '';
 				return this.info.comments = res.body.data;
 			});
 		},

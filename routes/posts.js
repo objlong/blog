@@ -84,6 +84,8 @@ router.get('/one', function (req, res, next) {
 			});			
 		} else {
 			delete post.author.password;
+			var author = req.session.user._id;
+			post.edit = author.toString() !== post.author._id.toString() ? 0 : 1;
   			var author = req.session.user._id;
 			comments.forEach((one, index, comments) => {
 				one.is_delete = one.author._id == author ? 1 : 0;
@@ -148,14 +150,18 @@ router.post('/edit', checkLogin, function (req, res, next) {
 });
 
 
-// GET /posts/:postId/remove 删除一篇文章
-router.get('/:postId/remove', checkLogin, function(req, res, next) {
-  	var postId = req.params.postId,
+// GET /posts/remove/?post_id=postId 删除一篇文章
+router.post('/remove/', checkLogin, function(req, res, next) {
+  	var postId = req.fields.post_id,
   		author = req.session.user._id;
+  	console.log(postId)
   	PostModel.delPostById(postId, author)
   		.then(function () {
-  			req.flash('success', 'delete success');
-  			res.redirect('/posts');
+  			res.send({
+  				errmsg: '',
+  				errnum: '',
+  				data: '删除成功'
+  			});
   		})
   		.catch(next);
 });

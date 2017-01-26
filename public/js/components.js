@@ -10,13 +10,18 @@ Vue.component('post', {
 	        <div class="article">\
 	            <p class="article-title">{{articleItem.title}}</p>\
 	            <p class="article-content" v-html="articleItem.content"></p>\
+	            <div class="article-btn">\
+	            	<a v-if="articleItem.edit === 1" :href="editUrl" class="edit-article">编辑</a>\
+	            	<a v-if="articleItem.edit === 1" href="javascript:;" class="del-article" @click="delArticle">删除</a>\
+	            </div>\
 	        </div>\
 	    </div>\
 	',
-	props: ['articleItem'],
+	props: ['articleItem', 'delArticle'],
 	data: function () {
 		return {
-			url: '/posts/?id=' + this.articleItem._id
+			url: '/posts/?id=' + this.articleItem._id,
+			editUrl: '/posts/public/?id=' + this.articleItem._id
 		}
 	}
 });

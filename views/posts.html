@@ -16,13 +16,13 @@
         </div>
         <div class="main" :load="load">
             <div v-if="info.articleList.join('')" class="article-list">
-                <post v-for="articleItem in info.articleList" :article-item="articleItem"></post>
+                <post v-for="articleItem in info.articleList" :article-item="articleItem" :del-article="delArticle"></post>
             </div>
             <div v-if="info.comments.join('')" class="comments">
                 <div class="comments-header">留言</div>
                 <comment v-for="comment in info.comments" :comment="comment" :delete-comment="deleteComment"></comment>
             </div>
-            <div v-if="info.comments.join('')" class="submit-comments">
+            <div v-if="local().id" class="submit-comments">
                 <div class="submit-header">发表留言</div>
                 <div class="submit-content">
                     <textarea placeholder="请留言" v-model="content"></textarea>
