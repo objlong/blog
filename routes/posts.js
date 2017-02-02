@@ -84,9 +84,8 @@ router.get('/one', function (req, res, next) {
 			});			
 		} else {
 			delete post.author.password;
-			var author = req.session.user._id;
+			var author = req.session.user ? req.session.user._id : '';
 			post.edit = author.toString() !== post.author._id.toString() ? 0 : 1;
-  			var author = req.session.user._id;
 			comments.forEach((one, index, comments) => {
 				one.is_delete = one.author._id == author ? 1 : 0;
  			});			

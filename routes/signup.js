@@ -8,16 +8,16 @@ var checkNotLogin = require('../middlewares/check').checkNotLogin;
 
 // GET /signup 注册页
 router.get('/', checkNotLogin, function(req, res, next) {
-    // res.send(req.flash());
     res.render('signup');
 });
 
 // POST /signup 用户注册
-router.post('/', checkNotLogin, function(req, res, next) {
+router.post('/', function(req, res, next) {
     var name = req.fields.name,
         gender = req.fields.gender,
         bio = req.fields.bio,
-        avatar = req.files.avatar.path.split(path.sep).pop(),
+        // avatar = req.files.avatar.path.split(path.sep).pop(),
+        avatar = '/img/default_avatar.jpg',
         password = req.fields.password,
         repassword = req.fields.repassword;
 
@@ -32,9 +32,9 @@ router.post('/', checkNotLogin, function(req, res, next) {
         if (!(bio.length >= 1 && bio.length <= 30)) {
             throw new Error('个人简介请限制在 1-30 个字符');
         }
-        if (!req.files.avatar.name) {
-            throw new Error('缺少头像');
-        }
+        // if (!req.files.avatar.name) {
+        //     throw new Error('缺少头像');
+        // }
         if (password.length < 6) {
             throw new Error('密码至少 6 个字符');
         }
@@ -42,8 +42,11 @@ router.post('/', checkNotLogin, function(req, res, next) {
             throw new Error('两次输入密码不一致');
         }
     } catch (e) {
-        req.flash('error', e.message);
-        return res.redirect('/signup');
+        req.send({
+            errmsg: e.message,
+            errnum: '',
+            data: null
+        })
     }
     password = sha1(password);
     var user = {
@@ -58,13 +61,19 @@ router.post('/', checkNotLogin, function(req, res, next) {
         user = result.ops[0];
         delete user.password;
         req.session.user = user;
-        req.flash('success', 'success');
-        res.redirect('/posts');
+        res.send({
+            errmsg: '',
+            errnum: '',
+            data: 'success'
+        });
     })
     .catch(function (e) {
         if (e.message.match('E11000 duplicate key')) {
-            req.flash('error', 'zhanyong');
-            return res.redirect('/signup');
+            res.send({
+                errmsg: '用户名已占用',
+                errnum: '',
+                data: ''
+            });
         }
         next();
     })

@@ -59,3 +59,86 @@
 .login a:hover{
 	background-color: #7CA692;
 }
+.register{
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+	width: 500px;
+	height: 900px;
+	padding: 20px;
+	overflow: hidden;
+}
+.register .login-content{
+	text-align: center;
+	font-size: 22px;
+	color: #444;
+	padding: 20px 0;
+}
+.register-box{
+	padding: 20px 0;
+}
+.register-box .register-item{
+	overflow: hidden;
+	padding-bottom: 20px;
+}
+.register-box .register-item .left-option{
+	width: 20%;
+	float: left;
+	line-height: 52px;
+	font-size: 20px;
+}
+.register-box .register-item .right-option{
+	display: block;
+	padding: 0;
+	margin: 0;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	width: 80%;
+	height: 52px;
+	padding-left: 20px;
+	font-size: 16px;
+	background-color: #fff;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+}
+.register-box .register-item .intro{
+	display: block;
+	resize: none;
+	width: 100%;
+	height: 120px;
+	padding-left: 20px;
+	font-size: 16px;
+	background-color: #fff;
+	border: 1px solid #ddd;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	-moz-box-sizing: border-box;	
+}
+.register a{
+	width: 150px;
+	height: 52px;
+	line-height: 52px;
+	border-radius: 4px;	
+	display: block;
+	background-color: #D7ECF1;
+	color: #444;	
+	text-align: center;
+	font-size: 18px;
+}
+.register .cancel{
+	float: left;
+	margin-left: 20px;
+}
+.register .register-ok{
+	float: right;
+	margin-right: 20px;
+}
+.register a:hover{
+	background-color: #7CA692;
+}

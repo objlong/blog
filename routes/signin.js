@@ -6,7 +6,7 @@
 	var checkNotLogin = require('../middlewares/check').checkNotLogin;
 
 	// GET /signin 登录页
-	router.get('/', checkNotLogin, function(req, res, next) {
+	router.get('/', function(req, res, next) {
 		res.render('signin.html');
 	});
 
