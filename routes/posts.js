@@ -9,6 +9,7 @@ router.get('/', function (req, res, next) {
 //获取文章列表
 router.get('/list', function (req, res, next) {
 	var author = req.query.author;
+	var ifLogin = req.session.user ? true : false;
 	PostModel.getPosts(author)
 		.then(function (posts) {
 			posts.forEach((p, i, a) => {
@@ -17,7 +18,10 @@ router.get('/list', function (req, res, next) {
 			res.send({
 				errnum: '',
 				errmsg: '',
-				data: posts
+				data: {
+					posts: posts,
+					if_login: ifLogin
+				}
 			});
 		})
 		.catch(next);
@@ -68,6 +72,7 @@ router.get('/public', checkLogin, function (req, res, next) {
 // GET /posts/one?id=postId 单独文章页
 router.get('/one', function (req, res, next) {
 	var postId = req.query.id;
+	var ifLogin = req.session.user ? true : false;
 	Promise.all([
 		PostModel.getPostById(postId),
 		CommentModel.getComments(postId),
@@ -94,7 +99,8 @@ router.get('/one', function (req, res, next) {
 				errmsg: '',
 				data: {
 					post: [post],
-					comments: comments
+					comments: comments,
+					if_login: ifLogin
 				}
 			});				
 		}
@@ -105,7 +111,8 @@ router.get('/one', function (req, res, next) {
 // GET /posts/edit/?post_id=postId 编辑文章页面
 router.get('/edit', checkLogin, function (req, res, next) {
 	var postId = req.query.post_id,
-		author = req.session.user._id;
+		author = req.session.user._id,
+		ifLogin = req.session.user ? true : false;
 	PostModel.getRawPostById(postId)
 		.then(function (post) {
 			try {
@@ -125,7 +132,10 @@ router.get('/edit', checkLogin, function (req, res, next) {
 			res.send({
 				errmsg: '',
 				errnum: '',
-				data: post
+				data: {
+					post: post,
+					if_login: ifLogin
+				}
 			});
 		})
 		.catch(next);
@@ -153,7 +163,6 @@ router.post('/edit', checkLogin, function (req, res, next) {
 router.post('/remove/', checkLogin, function(req, res, next) {
   	var postId = req.fields.post_id,
   		author = req.session.user._id;
-  	console.log(postId)
   	PostModel.delPostById(postId, author)
   		.then(function () {
   			res.send({
@@ -167,7 +176,6 @@ router.post('/remove/', checkLogin, function(req, res, next) {
 
 // POST /posts/comment/?id=postId 创建一条留言
 router.post('/submit_comment/', checkLogin, function(req, res, next) {
-	console.log(req.session)
   	var author = req.session.user._id,
   		postId = req.fields.postId,
   		content = req.fields.content,

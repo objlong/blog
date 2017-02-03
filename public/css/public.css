@@ -4,8 +4,7 @@
 	left: 0;
 	top: 0;	
 	height: 60px;
-	opacity: .7;
-	background-color: #000;
+	background-color: rgba(0, 0, 0, 0.7);
 	z-index: 2;
 }
 .header .bg{
@@ -19,6 +18,20 @@
 	background-size: cover;
 	background-position: center;
 	z-index: -1;		
+}
+.header .menu .right-btn{
+	position: absolute;
+	right: 40px;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+	font-size: 16px;
+	line-height: 30px;
+	height: 30px;
+	padding: 0 20px;
+	border-radius: 4px;
+	color: #444;
+	background-color: #ddd;
 }
 .public{
 	z-index: 1;

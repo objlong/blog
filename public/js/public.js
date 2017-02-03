@@ -3,7 +3,8 @@ var vm = new Vue({
 	el: '#main',
 	data: {
 		title: '',
-		content: ''
+		content: '',
+		ifLogin: false
 	},
 	computed: {
 		load: function () {
@@ -15,9 +16,10 @@ var vm = new Vue({
 					}
 				}).then(function(res) {
 					if (res.body.errmsg) return alert(res.body.errmsg);
-					var post = res.body.data;
+					var post = res.body.data.post;
 					this.title = post.title;
 					this.content = post.content;
+					this.ifLogin = res.body.data.if_login;
 				})
 			}
 		}

@@ -36,7 +36,6 @@
 			//session
 			delete user.password;
 			req.session.user = user;
-			console.log(req.session)
 			res.send({
 				errnum: '',
 				errmsg: '',

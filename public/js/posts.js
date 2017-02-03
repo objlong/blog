@@ -7,7 +7,8 @@ var vm = new Vue({
 			articleList: [],
 			comments: []
 		},
-		content: ''
+		content: '',
+		ifLogin: false
 	},
 	computed: {
 		load: function () {
@@ -18,7 +19,8 @@ var vm = new Vue({
 		loadAll: function () {
 			this.$http.get('/posts/list', {}).then(function(res) {
 				if (res.body.errmsg) return alert(res.body.errmsg);
-				return this.info.articleList = res.body.data;
+				this.info.articleList = res.body.data.posts;
+				this.ifLogin = res.body.data.if_login;
 			}), function () {
 				alert('网络链接失败');
 			}
@@ -32,6 +34,7 @@ var vm = new Vue({
 					articleList: res.body.data.post,
 					comments: res.body.data.comments
 				};
+				this.ifLogin = res.body.data.if_login;
 			}), function () {
 				alert('网络链接失败');
 			}
@@ -82,6 +85,16 @@ var vm = new Vue({
 					}
 				}
 			})
+		},
+		inOrOut: function() {
+			if (this.ifLogin) {
+				this.$http.post('/signout', {}).then(function(res) {
+					if (res.body.errmsg) return alert(res.body.errmsg);
+					window.location.href = "/posts";
+				})
+			} else {
+				window.location.href = "/signin";
+			}
 		}	
 	}
 });
