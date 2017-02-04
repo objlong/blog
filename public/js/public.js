@@ -42,7 +42,7 @@ var vm = new Vue({
 				content: this.content
 			}).then(function (res) {
 				if (res.body.errmsg) return alert(res.body.errmsg);
-				window.location.href = '/posts/?id=' + res.body._id;
+				window.location.href = '/posts/?id=' + res.body.data._id;
 			});			
 		},
 		editArticle: function() {
