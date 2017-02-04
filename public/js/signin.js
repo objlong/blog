@@ -8,7 +8,7 @@ var vm = new Vue({
 		name: '',
 		gender: 'm',
 		bio: '',
-		password: '',
+		newpassword: '',
 		repassword: ''
 	},
 	methods: {
@@ -43,17 +43,17 @@ var vm = new Vue({
 	        if (!(this.bio.length >= 1 && this.bio.length <= 30)) {
 	            return alert('个人简介请限制在 1-30 个字符');
 	        }
-	        if (this.password.length < 6) {
+	        if (this.newpassword.length < 6) {
 	            return alert('密码至少 6 个字符');
 	        }
-	        if (this.password !== this.repassword) {
+	        if (this.newpassword !== this.repassword) {
 	            return alert('两次输入密码不一致');
 	        }
 			this.$http.post('/signup', {
 				name: this.name,
 				gender: this.gender,
 				bio: this.bio,
-				password: this.password,
+				password: this.newpassword,
 				repassword: this.repassword
 			}).then(function (res) {
 				if (res.body.errmsg) {
