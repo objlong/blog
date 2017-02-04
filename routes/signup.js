@@ -1,6 +1,5 @@
 var path = require('path');
 var crypto = require('crypto');
-var md5 = crypto.createHash('md5');
 var express = require('express');
 var router = express.Router();
 
@@ -49,6 +48,7 @@ router.post('/', function(req, res, next) {
             data: null
         })
     }
+    var md5 = crypto.createHash('md5');
     password = md5.update(password).digest('hex');
     var user = {
         name: name,

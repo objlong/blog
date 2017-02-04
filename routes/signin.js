@@ -1,5 +1,4 @@
 var crypto = require('crypto');
-var md5 = crypto.createHash('md5');
 var express = require('express');
 var router = express.Router();
 
@@ -26,6 +25,7 @@ router.post('/', checkNotLogin, function(req, res, next) {
 			return;
 		}
 		//checkpsw
+                var md5 = crypto.createHash('md5');
 		if (md5.update(password).digest('hex') !== user.password) {
 			res.send({
 				errnum: '',
