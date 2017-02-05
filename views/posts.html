@@ -10,7 +10,7 @@
     <div id="posts">
         <div class="header">
             <div class="menu">
-                <a href="javascript:void(0)" class="right-btn" @click="inOrOut">{{ ifLogin ? '登出' : '登陆'}}</a>
+                <a href="javascript:void(0)" class="right-btn" v-cloak @click="inOrOut">{{ ifLogin ? '登出' : '登陆'}}</a>
             </div>
             <div class="bg"></div>
         </div>
@@ -18,11 +18,11 @@
             <div v-if="info.articleList.join('')" class="article-list">
                 <post v-for="articleItem in info.articleList" :article-item="articleItem" :del-article="delArticle"></post>
             </div>
-            <div v-if="info.comments.join('')" class="comments">
+            <div v-if="info.comments.join('')" class="comments" v-cloak>
                 <div class="comments-header">留言</div>
                 <comment v-for="comment in info.comments" :comment="comment" :delete-comment="deleteComment"></comment>
             </div>
-            <div v-if="local().id" class="submit-comments">
+            <div v-if="local().id" class="submit-comments" v-cloak>
                 <div class="submit-header">发表留言</div>
                 <div class="submit-content">
                     <textarea placeholder="请留言" v-model="content"></textarea>

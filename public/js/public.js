@@ -59,6 +59,16 @@ var vm = new Vue({
 		},
 		submitArticle: function () {
 			this.local().id ? this.editArticle() : this.createArticle();
-		}		
+		},
+		inOrOut: function() {
+			if (this.ifLogin) {
+				this.$http.post('/signout', {}).then(function(res) {
+					if (res.body.errmsg) return alert(res.body.errmsg);
+					window.location.href = "/posts";
+				})
+			} else {
+				window.location.href = "/signin";
+			}
+		}				
 	}
 });

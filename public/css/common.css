@@ -13,3 +13,6 @@ body{
 	background-color: #ecf0f1;
 	color: #444;
 }
+[v-cloak]{
+	display: none;
+}

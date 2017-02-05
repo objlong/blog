@@ -19,7 +19,7 @@
 			<a href="javascript:void(0)" @click="login" class="login-btn">登陆</a>
 			<a href="javascript:void(0)" class="register-btn" @click="tabRegister">注册</a>
 		</div>
-		<div v-if="register" class="register">
+		<div v-if="register" v-cloak class="register">
 			<div class="login-content">注册</div>
 			<div class="register-box">
 				<div class="register-item">
