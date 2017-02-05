@@ -19,6 +19,21 @@
 	background-position: center;
 	z-index: -1;		
 }
+.header .menu .logo{
+	color: #fff;
+	font-size: 30px;
+	line-height: 45px;
+	height: 45px;
+	position: absolute;
+	left: 40px;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+	opacity: .7;
+}
+.header .menu .logo:hover{
+	opacity: 1;
+}
 .header .menu .right-btn{
 	position: absolute;
 	right: 40px;
